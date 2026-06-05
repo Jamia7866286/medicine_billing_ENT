@@ -149,7 +149,7 @@ const AddMedicineComponent = () => {
   return (
     <div className="app-shell">
       <div className="card-shell overflow-hidden">
-        <div className="bg-gradient-to-r from-emerald-600 to-teal-600 px-6 py-8 sm:px-8">
+        <div className="bg-gradient-to-r from-emerald-600 to-teal-600 px-4 py-6 sm:px-8 sm:py-8">
           <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
             <div>
               <p className="text-sm font-semibold uppercase tracking-[0.28em] text-emerald-100">
@@ -167,9 +167,9 @@ const AddMedicineComponent = () => {
           </div>
         </div>
 
-        <div className="p-6 sm:p-8 space-y-8">
-          <div className="grid gap-4 lg:grid-cols-[1.4fr_0.8fr] bg-slate-50 p-6 rounded-3xl border border-slate-200 shadow-sm">
-            <div className="flex flex-col gap-3">
+        <div className="px-4 py-5 sm:px-6 sm:py-8 space-y-8">
+          <div className="grid grid-cols-2 gap-3 items-end bg-slate-50 p-5 sm:p-6 rounded-3xl border border-slate-200 shadow-sm">
+            <div className="flex flex-col gap-2">
               <label className="text-sm font-semibold text-slate-700">Medicine Name</label>
               <input
                 type="text"
@@ -178,7 +178,7 @@ const AddMedicineComponent = () => {
                 className="input-field"
               />
             </div>
-            <div className="flex flex-col gap-3">
+            <div className="flex flex-col gap-2">
               <label className="text-sm font-semibold text-slate-700">Unit price</label>
               <input
                 type="number"
@@ -189,7 +189,7 @@ const AddMedicineComponent = () => {
             </div>
             <button
               onClick={handleAddToInventory}
-              className="btn-primary w-full px-6 py-3 text-sm self-end"
+              className="btn-primary w-full px-5 py-3 text-sm col-span-2 sm:col-span-1"
             >
               Add Medicine
             </button>

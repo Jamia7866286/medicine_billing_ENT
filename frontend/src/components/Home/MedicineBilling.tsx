@@ -194,34 +194,34 @@ const MedicineBillingComponent = () => {
   return (
     <div className="app-shell">
       <div className="card-shell overflow-hidden">
-        <div className="bg-gradient-to-r from-sky-600 to-indigo-700 px-6 py-8 sm:px-8">
-          <div className="flex flex-col gap-5 lg:flex-row lg:items-center lg:justify-between">
+        <div className="bg-gradient-to-r from-sky-600 to-indigo-700 px-4 py-6 sm:px-8 sm:py-8">
+          <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
             <div className="max-w-2xl">
               <p className="text-sm font-semibold uppercase tracking-[0.28em] text-cyan-100">
                 Sales dashboard
               </p>
-              <h2 className="mt-3 text-3xl font-semibold text-white">
+              {/* <h2 className="mt-3 text-3xl font-semibold text-white">
                 Modern Medicine Billing
-              </h2>
-              <p className="mt-3 max-w-2xl text-sm leading-7 text-cyan-100/85">
+              </h2> */}
+              {/* <p className="mt-3 max-w-2xl text-sm leading-7 text-cyan-100/85">
                 Add medicines, create invoices and save daily sales history all from one polished dashboard.
-              </p>
+              </p> */}
             </div>
             <div className="flex flex-wrap items-center gap-3">
-              <Link to="/add-medicine" className="btn-secondary px-5 py-3 text-sm">
+              <Link to="/add-medicine" className="btn-secondary px-3 py-2 text-sm">
                 Medicines
               </Link>
-              <Link to="/history" className="btn-primary px-5 py-3 text-sm">
+              <Link to="/history" className="btn-primary px-3 py-2 text-sm">
                 History
               </Link>
             </div>
           </div>
         </div>
 
-        <div className="p-6 sm:p-8">
-          <div className="grid gap-6 xl:grid-cols-[1.7fr_0.9fr]">
-            <div className="card-compact p-6">
-              <div className="grid gap-4 sm:grid-cols-[1.8fr_0.8fr]">
+        <div className="px-4 py-5 sm:px-6 sm:py-8">
+          <div className="grid gap-2 xl:grid-cols-[1.7fr_0.9fr]">
+            <div className="card-compact p-5 sm:p-6">
+              <div className="grid grid-cols-2 gap-3">
                 <div className="flex flex-col gap-2">
                   <label className="text-sm font-semibold text-slate-700">Medicine</label>
                   <input
@@ -272,26 +272,25 @@ const MedicineBillingComponent = () => {
                 </div>
               </div>
 
-              <div className="mt-5 grid gap-3 sm:grid-cols-2">
-                <button onClick={handleAddToBill} className="btn-primary px-6 py-3 text-sm">
-                  <span className="hidden sm:inline">Add to Invoice</span>
-                  <span className="sm:hidden">Add</span>
+              <div className="mt-5 grid grid-cols-2 gap-3">
+                <button onClick={handleAddToBill} className="btn-primary px-3 py-2 text-sm w-full">
+                  Add to Invoice
                 </button>
-                <button onClick={handleClearInvoice} className="btn-secondary px-6 py-3 text-sm">
-                  <span className="hidden sm:inline">Clear all</span>
-                  <span className="sm:hidden">Clear</span>
+                <button onClick={handleClearInvoice} className="btn-secondary px-3 py-2 text-sm w-full">
+                  Clear all
                 </button>
               </div>
             </div>
 
-            <div className="card-compact p-6 bg-slate-50">
-              <p className="text-sm font-semibold uppercase tracking-[0.24em] text-slate-500">Invoice total</p>
-              <div className="mt-6 text-5xl font-semibold text-slate-950">{Math.round(grandTotal)}</div>
-              <p className="mt-3 text-sm text-slate-600">Grand total for the current invoice. Add or edit items before clearing.</p>
+            <div className="card-compact py-3 px-5 sm:p-6 bg-slate-50 flex justify-between items-center align-items-center">
+              {/* <p className="text-sm font-semibold uppercase tracking-[0.24em] text-slate-500">Invoice total</p> */}
+              <p className="text-sm font-semibold uppercase tracking-[0.24em] text-slate-500">total</p>
+              <div className="text-2xl font-semibold text-slate-950">{Math.round(grandTotal)}</div>
+              {/* <p className="mt-3 text-sm text-slate-600">Grand total for the current invoice. Add or edit items before clearing.</p> */}
             </div>
           </div>
 
-          <div className="mt-8 overflow-x-auto">
+          <div className="mt-4 overflow-x-auto">
             <table className="table-modern">
               <thead>
                 <tr>
@@ -354,10 +353,18 @@ const MedicineBillingComponent = () => {
                       <td>{item.quantity}</td>
                       <td className="font-semibold text-slate-900">{item.amount.toFixed(1)}</td>
                       <td className="flex flex-wrap items-center gap-2">
-                        <button onClick={() => startBillEditing(i)} className="btn-secondary btn-icon h-11 w-11">
+                        <button
+                          onClick={() => startBillEditing(i)}
+                          className="btn-secondary btn-icon h-9 w-9 text-sky-600 hover:bg-slate-100"
+                          aria-label={`Edit ${item.name}`}
+                        >
                           <FaEdit />
                         </button>
-                        <button onClick={() => removeBillItem(i)} className="btn-secondary btn-icon h-11 w-11">
+                        <button
+                          onClick={() => removeBillItem(i)}
+                          className="btn-secondary btn-icon h-9 w-9 text-rose-600 hover:bg-slate-100"
+                          aria-label={`Delete ${item.name}`}
+                        >
                           <FaTrash />
                         </button>
                       </td>
