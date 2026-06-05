@@ -9,4 +9,4 @@
   status = 200
 
 [context.production.environment]
-  VITE_API_URL = "https://your-backend-url.com/api"
+  VITE_API_URL = "https://medicine-billing-ent.onrender.com/api"
