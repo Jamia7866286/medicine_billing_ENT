@@ -9,7 +9,10 @@ dotenv.config();
 connectDB();
 
 const app = express();
-app.use(cors());
+const PORT = process.env.PORT || 5000;
+const CORS_ORIGIN = process.env.CORS_ORIGIN || "http://localhost:5173";
+
+app.use(cors({ origin: CORS_ORIGIN }));
 app.use(express.json());
 
 app.use("/api/medicines", medicineRoutes);
@@ -19,4 +22,4 @@ app.get("/", (req, res) => {
   res.send("API Running...");
 });
 
-app.listen(5000, () => console.log("Server running on 5000 🚀"));
+app.listen(PORT, () => console.log(`Server running on ${PORT} 🚀`));
