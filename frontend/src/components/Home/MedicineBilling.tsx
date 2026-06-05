@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { FaEdit, FaPlus, FaTrash } from "react-icons/fa";
+import { FaEdit, FaTrash } from "react-icons/fa";
 import API from "../../apis/api";
 import { Link } from "react-router-dom";
 
@@ -192,195 +192,188 @@ const MedicineBillingComponent = () => {
   }, [billItems]);
 
   return (
-    <div className="pt-10">
-      {/* --- SECTION 1: BILLING TABLE --- */}
-      <div className="bg-[#e8f5e9] border-2 border-black p-6 rounded-sm shadow-[6px_6px_0px_0px_rgba(0,0,0,1)]">
-        <div className="flex justify-between items-center mb-6">
-          <h2 className="text-2xl font-bold border-b-4 border-black">
-            Medicine Billing
-          </h2>
-          <div className="flex gap-2">
-            <Link
-              to="/add-medicine"
-              className="bg-red-500 border-2 border-black px-4 py-1 font-black text-white text-md"
-            >
-              Medicines
-              <FaPlus style={{ display: "inline", marginLeft: "8px" }} />
-            </Link>
-            <Link
-              to="/history"
-              className="bg-blue-500 border-2 border-black px-4 py-1 font-black text-white text-md"
-            >
-              History
-            </Link>
+    <div className="app-shell">
+      <div className="card-shell overflow-hidden">
+        <div className="bg-gradient-to-r from-sky-600 to-indigo-700 px-6 py-8 sm:px-8">
+          <div className="flex flex-col gap-5 lg:flex-row lg:items-center lg:justify-between">
+            <div className="max-w-2xl">
+              <p className="text-sm font-semibold uppercase tracking-[0.28em] text-cyan-100">
+                Sales dashboard
+              </p>
+              <h2 className="mt-3 text-3xl font-semibold text-white">
+                Modern Medicine Billing
+              </h2>
+              <p className="mt-3 max-w-2xl text-sm leading-7 text-cyan-100/85">
+                Add medicines, create invoices and save daily sales history all from one polished dashboard.
+              </p>
+            </div>
+            <div className="flex flex-wrap items-center gap-3">
+              <Link to="/add-medicine" className="btn-secondary px-5 py-3 text-sm">
+                Medicines
+              </Link>
+              <Link to="/history" className="btn-primary px-5 py-3 text-sm">
+                History
+              </Link>
+            </div>
           </div>
         </div>
 
-        {/* Input Row */}
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6 items-end">
-          <div className="flex flex-col relative">
-            <label className="font-bold text-sm">Choose medicine</label>
-            <input
-              type="text"
-              value={selectedMedQuery}
-              onChange={(e) => {
-                setSelectedMedQuery(e.target.value);
-                setSelectedMedIndex("");
-                setShowMedSuggestions(true);
-              }}
-              onFocus={() => setShowMedSuggestions(true)}
-              onBlur={() => setTimeout(() => setShowMedSuggestions(false), 150)}
-              placeholder="Search medicine"
-              className="border-2 border-black p-2 bg-white"
-            />
-            {showMedSuggestions && (
-              <div className="absolute top-full z-20 mt-1 max-h-52 w-full overflow-auto rounded-sm border border-black bg-white shadow-lg">
-                {filteredMedOptions.length > 0 ? (
-                  filteredMedOptions.map(({ item, index }) => (
-                    <button
-                      type="button"
-                      key={index}
-                      onMouseDown={() => {
-                        setSelectedMedIndex(index.toString());
-                        setSelectedMedQuery(item.name);
-                      }}
-                      className="w-full text-left px-3 py-2 hover:bg-gray-100"
-                    >
-                      {item.name}
-                    </button>
-                  ))
-                ) : (
-                  <div className="px-3 py-2 text-sm text-gray-500">
-                    No matches found
-                  </div>
-                )}
+        <div className="p-6 sm:p-8">
+          <div className="grid gap-6 xl:grid-cols-[1.7fr_0.9fr]">
+            <div className="card-compact p-6">
+              <div className="grid gap-4 sm:grid-cols-[1.8fr_0.8fr]">
+                <div className="flex flex-col gap-2">
+                  <label className="text-sm font-semibold text-slate-700">Medicine</label>
+                  <input
+                    type="text"
+                    value={selectedMedQuery}
+                    onChange={(e) => {
+                      setSelectedMedQuery(e.target.value);
+                      setSelectedMedIndex("");
+                      setShowMedSuggestions(true);
+                    }}
+                    onFocus={() => setShowMedSuggestions(true)}
+                    onBlur={() => setTimeout(() => setShowMedSuggestions(false), 150)}
+                    placeholder="Search medicine"
+                    className="input-field"
+                  />
+                  {showMedSuggestions && (
+                    <div className="relative">
+                      <div className="absolute inset-x-0 top-full z-20 mt-2 overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-xl">
+                        {filteredMedOptions.length > 0 ? (
+                          filteredMedOptions.map(({ item, index }) => (
+                            <button
+                              type="button"
+                              key={index}
+                              onMouseDown={() => {
+                                setSelectedMedIndex(index.toString());
+                                setSelectedMedQuery(item.name);
+                              }}
+                              className="w-full px-4 py-3 text-left text-sm text-slate-800 hover:bg-slate-50"
+                            >
+                              {item.name}
+                            </button>
+                          ))
+                        ) : (
+                          <div className="px-4 py-3 text-sm text-slate-500">No matches found</div>
+                        )}
+                      </div>
+                    </div>
+                  )}
+                </div>
+                <div className="flex flex-col gap-2">
+                  <label className="text-sm font-semibold text-slate-700">Quantity</label>
+                  <select value={qty} onChange={(e) => setQty(e.target.value)} className="input-field">
+                    <option value="">Select qty</option>
+                    {Array.from({ length: 20 }, (_, i) => i + 1).map((num) => (
+                      <option key={num} value={num}>{num}</option>
+                    ))}
+                  </select>
+                </div>
               </div>
-            )}
-          </div>
-          <div className="flex flex-col">
-            <label className="font-bold text-sm">Quantity</label>
-            <select
-              value={qty}
-              onChange={(e) => setQty(e.target.value)}
-              className="border-2 border-black p-2"
-            >
-              <option value="">-- Select --</option>
-              {Array.from({ length: 15 }, (_, i) => i + 1).map((num) => (
-                <option key={num} value={num}>
-                  {num}
-                </option>
-              ))}
-            </select>
-          </div>
-          <button
-            onClick={handleAddToBill}
-            className="bg-black text-white p-2 font-bold hover:bg-gray-800 transition-all cursor-pointer"
-          >
-            Add to Invoice
-          </button>
-          <button
-            onClick={handleClearInvoice}
-            className="bg-red-500 border-2 px-4 py-1 font-bold text-white text-xl cursor-pointer"
-          >
-            Clear All
-          </button>
-        </div>
 
-        {/* Bill Table */}
-        <table className="w-full border-collapse border-2 border-black bg-white">
-          <thead>
-            <tr className="bg-gray-200">
-              <th className="border-2 border-black p-2">Medicine Name</th>
-              <th className="border-2 border-black p-2">Unit Price</th>
-              <th className="border-2 border-black p-2">Qty</th>
-              <th className="border-2 border-black p-2">Amount</th>
-              <th className="border-2 border-black p-2">Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            {billItems.map((item, i) =>
-              editingBillIndex === i ? (
-                <tr key={i} className="bg-yellow-50">
-                  <td className="border-2 border-black p-2 font-bold">
-                    {item.name}
-                  </td>
-                  <td className="border-2 border-black p-2">
-                    <input
-                      type="number"
-                      value={editBillMrp}
-                      onChange={(e) => setEditBillMrp(e.target.value)}
-                      className="border border-gray-400 p-1 w-full"
-                    />
-                  </td>
-                  <td className="border-2 border-black p-2">
-                    <input
-                      type="number"
-                      min="1"
-                      value={editBillQty}
-                      onChange={(e) => setEditBillQty(e.target.value)}
-                      className="border border-gray-400 p-1 w-full"
-                    />
-                  </td>
-                  <td className="border-2 border-black p-2 font-bold">
-                    {item.amount}
-                  </td>
-                  <td className="border-2 border-black p-2 space-x-2">
-                    <button
-                      onClick={saveBillEdit}
-                      className="text-green-600 font-bold underline"
-                    >
-                      Save
-                    </button>
-                    <button
-                      onClick={cancelBillEdit}
-                      className="text-gray-600 font-bold underline"
-                    >
-                      Cancel
-                    </button>
-                  </td>
+              <div className="mt-5 grid gap-3 sm:grid-cols-2">
+                <button onClick={handleAddToBill} className="btn-primary px-6 py-3 text-sm">
+                  <span className="hidden sm:inline">Add to Invoice</span>
+                  <span className="sm:hidden">Add</span>
+                </button>
+                <button onClick={handleClearInvoice} className="btn-secondary px-6 py-3 text-sm">
+                  <span className="hidden sm:inline">Clear all</span>
+                  <span className="sm:hidden">Clear</span>
+                </button>
+              </div>
+            </div>
+
+            <div className="card-compact p-6 bg-slate-50">
+              <p className="text-sm font-semibold uppercase tracking-[0.24em] text-slate-500">Invoice total</p>
+              <div className="mt-6 text-5xl font-semibold text-slate-950">{Math.round(grandTotal)}</div>
+              <p className="mt-3 text-sm text-slate-600">Grand total for the current invoice. Add or edit items before clearing.</p>
+            </div>
+          </div>
+
+          <div className="mt-8 overflow-x-auto">
+            <table className="table-modern">
+              <thead>
+                <tr>
+                  <th>
+                    <span className="hidden sm:inline">Medicine Name</span>
+                    <span className="sm:hidden">Name</span>
+                  </th>
+                  <th>
+                    <span className="hidden sm:inline">Unit Price</span>
+                    <span className="sm:hidden">Price</span>
+                  </th>
+                  <th>
+                    <span className="hidden sm:inline">Qty</span>
+                    <span className="sm:hidden">Qty</span>
+                  </th>
+                  <th>
+                    <span className="hidden sm:inline">Amount</span>
+                    <span className="sm:hidden">Amt</span>
+                  </th>
+                  <th>
+                    <span className="hidden sm:inline">Actions</span>
+                    <span className="sm:hidden">Act</span>
+                  </th>
                 </tr>
-              ) : (
-                <tr key={i} className="text-center font-mono hover:bg-gray-50">
-                  <td className="border-2 border-black p-2">{item.name}</td>
-                  <td className="border-2 border-black p-2">{item.mrp}</td>
-                  <td className="border-2 border-black p-2">{item.quantity}</td>
-                  <td className="border-2 border-black p-2 font-bold">
-                    {item.amount.toFixed(1)}
-                  </td>
-                  <td className="border-2 border-black p-2 space-x-2">
-                    <button onClick={() => startBillEditing(i)}>
-                      <FaEdit
-                        style={{ cursor: "pointer", marginRight: "10px" }}
-                        className="text-blue-600 cursor-pointer"
-                      />
-                    </button>
-                    <button onClick={() => removeBillItem(i)}>
-                      <FaTrash
-                        style={{ cursor: "pointer" }}
-                        className="text-red-600 font-bold underline cursor-pointer"
-                      />
-                    </button>
-                  </td>
-                </tr>
-              ),
-            )}
-            {billItems.length === 0 && (
-              <tr>
-                <td
-                  colSpan={5}
-                  className="p-4 text-center text-gray-500 italic"
-                >
-                  No medicines in invoice yet. Add items above.
-                </td>
-              </tr>
-            )}
-          </tbody>
-        </table>
-        <div className="mt-4 text-right text-2xl font-black">
-          Grand Total:{" "}
-          <span className="bg-yellow-300 px-4 border-2 border-black">
-            {Math.round(grandTotal)}
-          </span>
+              </thead>
+              <tbody>
+                {billItems.map((item, i) =>
+                  editingBillIndex === i ? (
+                    <tr key={i} className="bg-slate-50">
+                      <td>
+                        <input type="text" value={item.name} className="input-field" disabled />
+                      </td>
+                      <td>
+                        <input
+                          type="number"
+                          value={editBillMrp}
+                          onChange={(e) => setEditBillMrp(e.target.value)}
+                          className="input-field"
+                        />
+                      </td>
+                      <td>
+                        <input
+                          type="number"
+                          min="1"
+                          value={editBillQty}
+                          onChange={(e) => setEditBillQty(e.target.value)}
+                          className="input-field"
+                        />
+                      </td>
+                      <td className="font-semibold text-slate-900">{item.amount}</td>
+                      <td className="space-x-2">
+                        <button onClick={saveBillEdit} className="btn-primary px-4 py-2 text-xs">Save</button>
+                        <button onClick={cancelBillEdit} className="btn-secondary px-4 py-2 text-xs">Cancel</button>
+                      </td>
+                    </tr>
+                  ) : (
+                    <tr key={i} className="text-slate-700">
+                      <td>{item.name}</td>
+                      <td>{item.mrp}</td>
+                      <td>{item.quantity}</td>
+                      <td className="font-semibold text-slate-900">{item.amount.toFixed(1)}</td>
+                      <td className="flex flex-wrap items-center gap-2">
+                        <button onClick={() => startBillEditing(i)} className="btn-secondary btn-icon h-11 w-11">
+                          <FaEdit />
+                        </button>
+                        <button onClick={() => removeBillItem(i)} className="btn-secondary btn-icon h-11 w-11">
+                          <FaTrash />
+                        </button>
+                      </td>
+                    </tr>
+                  ),
+                )}
+                {billItems.length === 0 && (
+                  <tr>
+                    <td colSpan={5} className="py-10 text-center text-sm text-slate-500">
+                      No invoice items yet. Add a medicine to begin.
+                    </td>
+                  </tr>
+                )}
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
     </div>

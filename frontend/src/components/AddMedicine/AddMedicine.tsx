@@ -147,121 +147,111 @@ const AddMedicineComponent = () => {
   };
 
   return (
-    <div className="pt-10">
-      <div className="bg-[#e8f5e9] border-2 border-black p-6 rounded-sm shadow-[6px_6px_0px_0px_rgba(0,0,0,1)]">
-        <div className="flex justify-between items-center mb-6">
-          <h2 className="text-2xl font-bold border-b-4 border-black">
-            All Medicine
-          </h2>
-          <Link
-            to="/"
-             className="bg-red-500 border-2 border-black px-4 py-1 font-black text-white text-md"
-          >
-            <FaFastBackward style={{ display: "inline", marginRight: "8px" }} />
-            Back
-          </Link>
+    <div className="app-shell">
+      <div className="card-shell overflow-hidden">
+        <div className="bg-gradient-to-r from-emerald-600 to-teal-600 px-6 py-8 sm:px-8">
+          <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+            <div>
+              <p className="text-sm font-semibold uppercase tracking-[0.28em] text-emerald-100">
+                Inventory manager
+              </p>
+              <h2 className="mt-3 text-3xl font-semibold text-white">Medicine catalog</h2>
+              <p className="mt-2 max-w-xl text-sm leading-6 text-emerald-100/85">
+                Add or edit medicines for billing. Keep your catalog up to date with fast search and modern controls.
+              </p>
+            </div>
+            <Link to="/" className="btn-secondary px-5 py-3 text-sm">
+              <FaFastBackward />
+              Back
+            </Link>
+          </div>
         </div>
 
-        <div className="flex flex-wrap gap-4 mb-8 items-end bg-gray-50 p-4 border-2 border-dashed border-black">
-          <div className="flex flex-col">
-            <label className="font-bold text-sm">Medicine Name</label>
-            <input
-              type="text"
-              value={newName}
-              onChange={(e) => setNewName(e.target.value)}
-              className="border-2 border-black p-2 w-48"
-            />
+        <div className="p-6 sm:p-8 space-y-8">
+          <div className="grid gap-4 lg:grid-cols-[1.4fr_0.8fr] bg-slate-50 p-6 rounded-3xl border border-slate-200 shadow-sm">
+            <div className="flex flex-col gap-3">
+              <label className="text-sm font-semibold text-slate-700">Medicine Name</label>
+              <input
+                type="text"
+                value={newName}
+                onChange={(e) => setNewName(e.target.value)}
+                className="input-field"
+              />
+            </div>
+            <div className="flex flex-col gap-3">
+              <label className="text-sm font-semibold text-slate-700">Unit price</label>
+              <input
+                type="number"
+                value={newPrice}
+                onChange={(e) => setNewPrice(e.target.value)}
+                className="input-field"
+              />
+            </div>
+            <button
+              onClick={handleAddToInventory}
+              className="btn-primary w-full px-6 py-3 text-sm self-end"
+            >
+              Add Medicine
+            </button>
           </div>
-          <div className="flex flex-col">
-            <label className="font-bold text-sm">Unit price</label>
-            <input
-              type="number"
-              value={newPrice}
-              onChange={(e) => setNewPrice(e.target.value)}
-              className="border-2 border-black p-2 w-24"
-            />
-          </div>
-          <button
-            onClick={handleAddToInventory}
-            className="border-2 border-black px-6 py-2 font-bold bg-white hover:bg-black hover:text-white transition-all"
-          >
-            Add Medicine
-          </button>
-        </div>
 
-        <table className="w-full border-collapse border-2 border-black">
-          <thead className="bg-black text-white">
-            <tr>
-              <th className="border-2 border-black p-2">Medicine Name</th>
-              <th className="border-2 border-black p-2">Unit price</th>
-              <th className="border-2 border-black p-2">Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            {inventory.map((item, i) =>
-              editingIndex === i ? (
-                // Edit Mode Row
-                <tr key={i} className="bg-yellow-50">
-                  <td className="border-2 border-black p-2">
-                    <input
-                      type="text"
-                      value={editName}
-                      onChange={(e) => setEditName(e.target.value)}
-                      className="border border-gray-400 p-1 w-full"
-                    />
-                  </td>
-                  <td className="border-2 border-black p-2">
-                    <input
-                      type="number"
-                      value={editPrice}
-                      onChange={(e) => setEditPrice(e.target.value)}
-                      className="border border-gray-400 p-1 w-full"
-                    />
-                  </td>
-                  <td className="border-2 border-black p-2 space-x-2">
-                    <button
-                      onClick={saveEdit}
-                      className="text-green-600 font-bold underline"
-                    >
-                      Save
-                    </button>
-                    <button
-                      onClick={cancelEdit}
-                      className="text-gray-600 font-bold underline"
-                    >
-                      Cancel
-                    </button>
-                  </td>
+          <div className="overflow-x-auto rounded-3xl border border-slate-200 bg-white shadow-sm">
+            <table className="table-modern">
+              <thead>
+                <tr>
+                  <th>Medicine Name</th>
+                  <th>Unit Price</th>
+                  <th>Actions</th>
                 </tr>
-              ) : (
-                // Normal Row
-                <tr key={i} className="text-center hover:bg-gray-50">
-                  <td className="border-2 border-black p-2 font-bold">
-                    {item.name}
-                  </td>
-                  <td className="border-2 border-black p-2">{item.mrp}</td>
-                  <td className="border-2 border-black p-2 space-x-2">
-                    <button
-                      onClick={() => startEditing(i)}
-                      className="text-blue-600 font-bold underline"
-                    >
-                      <FaEdit
-                        style={{ cursor: "pointer", marginRight: "10px" }}
-                        className="text-blue-600 cursor-pointer"
-                      />
-                    </button>
-                    <button onClick={() => removeFromInventory(i)}>
-                      <FaTrash
-                        style={{ cursor: "pointer" }}
-                        className="text-red-600 font-bold underline cursor-pointer"
-                      />
-                    </button>
-                  </td>
-                </tr>
-              ),
-            )}
-          </tbody>
-        </table>
+              </thead>
+              <tbody>
+                {inventory.map((item, i) =>
+                  editingIndex === i ? (
+                    <tr key={i} className="bg-slate-50">
+                      <td>
+                        <input
+                          type="text"
+                          value={editName}
+                          onChange={(e) => setEditName(e.target.value)}
+                          className="input-field"
+                        />
+                      </td>
+                      <td>
+                        <input
+                          type="number"
+                          value={editPrice}
+                          onChange={(e) => setEditPrice(e.target.value)}
+                          className="input-field"
+                        />
+                      </td>
+                      <td className="flex flex-wrap gap-3">
+                        <button onClick={saveEdit} className="btn-primary px-4 py-2 text-sm">
+                          Save
+                        </button>
+                        <button onClick={cancelEdit} className="btn-secondary px-4 py-2 text-sm">
+                          Cancel
+                        </button>
+                      </td>
+                    </tr>
+                  ) : (
+                    <tr key={i} className="text-slate-700">
+                      <td>{item.name}</td>
+                      <td>{item.mrp}</td>
+                      <td className="flex flex-wrap gap-2">
+                        <button onClick={() => startEditing(i)} className="btn-secondary btn-icon h-11 w-11">
+                          <FaEdit />
+                        </button>
+                        <button onClick={() => removeFromInventory(i)} className="btn-secondary btn-icon h-11 w-11">
+                          <FaTrash />
+                        </button>
+                      </td>
+                    </tr>
+                  ),
+                )}
+              </tbody>
+            </table>
+          </div>
+        </div>
       </div>
     </div>
   );
