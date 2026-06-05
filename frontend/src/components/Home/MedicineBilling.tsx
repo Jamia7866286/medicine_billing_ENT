@@ -201,17 +201,17 @@ const MedicineBillingComponent = () => {
           </h2>
           <div className="flex gap-2">
             <Link
-              to="/history"
-              className="bg-blue-500 border-2 border-black px-4 py-1 font-black text-white text-md"
-            >
-              History
-            </Link>
-            <Link
               to="/add-medicine"
               className="bg-red-500 border-2 border-black px-4 py-1 font-black text-white text-md"
             >
               Medicines
               <FaPlus style={{ display: "inline", marginLeft: "8px" }} />
+            </Link>
+            <Link
+              to="/history"
+              className="bg-blue-500 border-2 border-black px-4 py-1 font-black text-white text-md"
+            >
+              History
             </Link>
           </div>
         </div>
