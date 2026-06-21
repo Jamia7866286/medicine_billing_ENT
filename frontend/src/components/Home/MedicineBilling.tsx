@@ -221,9 +221,9 @@ const MedicineBillingComponent = () => {
         <div className="px-4 py-5 sm:px-6 sm:py-8">
           <div className="grid gap-2 xl:grid-cols-[1.7fr_0.9fr]">
             <div className="card-compact p-5 sm:p-6">
-              <div className="grid grid-cols-2 gap-3">
+              <div className="grid grid-cols-1 gap-3">
                 <div className="flex flex-col gap-2">
-                  <label className="text-sm font-semibold text-slate-700">Medicine</label>
+                  {/* <label className="text-sm font-semibold text-slate-700">Medicine</label> */}
                   <input
                     type="text"
                     value={selectedMedQuery}
@@ -239,7 +239,7 @@ const MedicineBillingComponent = () => {
                   />
                   {showMedSuggestions && (
                     <div className="relative">
-                      <div className="absolute inset-x-0 top-full z-20 mt-2 overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-xl">
+                      <div className="absolute inset-x-0 top-full z-20 overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-xl">
                         {filteredMedOptions.length > 0 ? (
                           filteredMedOptions.map(({ item, index }) => (
                             <button
@@ -262,9 +262,9 @@ const MedicineBillingComponent = () => {
                   )}
                 </div>
                 <div className="flex flex-col gap-2">
-                  <label className="text-sm font-semibold text-slate-700">Quantity</label>
+                  {/* <label className="text-sm font-semibold text-slate-700">Quantity</label> */}
                   <select value={qty} onChange={(e) => setQty(e.target.value)} className="input-field">
-                    <option value="">Select qty</option>
+                    <option value="">Select Quantity</option>
                     {Array.from({ length: 20 }, (_, i) => i + 1).map((num) => (
                       <option key={num} value={num}>{num}</option>
                     ))}
@@ -273,11 +273,11 @@ const MedicineBillingComponent = () => {
               </div>
 
               <div className="mt-5 grid grid-cols-2 gap-3">
-                <button onClick={handleAddToBill} className="btn-primary px-3 py-2 text-sm w-full">
-                  Add to Invoice
-                </button>
                 <button onClick={handleClearInvoice} className="btn-secondary px-3 py-2 text-sm w-full">
                   Clear all
+                </button>
+                <button onClick={handleAddToBill} className="btn-primary px-3 py-2 text-sm w-full">
+                  Add to Invoice
                 </button>
               </div>
             </div>
